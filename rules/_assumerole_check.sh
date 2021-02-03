@@ -18,7 +18,7 @@ for role in $roles
 do
     ext_account_ID=`aws iam get-role --role-name $role --query 'Role.AssumeRolePolicyDocument.Statement[*].Principal.AWS' --output text | awk -F '::' '{print $2}' | awk -F ':' '{print $1}'`
     if [ -n "$ext_account_ID" ];then
-        if [[ "$Account_ID" != "$ext_account_ID" ]];then
+        if [ "$Account_ID" != "$ext_account_ID" ] && [ ${role:0:8} != "Isengard" ]; then
 	    flag=1
 	    result_code=1
 	    result_msg="---> You have IAM role that allows assumption by external account"

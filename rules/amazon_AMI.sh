@@ -8,13 +8,15 @@
 set +e
 # printf "vvvvvvvvvv Execute Check - $(basename $0) Start: vvvvvvvvvv\n "
 
-image_ids=$(aws ec2 describe-instances --query Reservations[].Instances[].ImageId --region $REGION --output text)
-
+Image_Owner_Id=""
 result_code=0
 result_msg="No instances running public AMIs that are not owned by Amazon."
 result_detail=""
 flag=0
 flag_image=""
+
+Account_ID=`aws sts get-caller-identity --query 'Account' --output text`
+image_ids=$(aws ec2 describe-instances --query Reservations[].Instances[].ImageId --region $REGION --output text)
 
 for imageid in ${image_ids}; do
   flag_imageid="imageid"
@@ -22,10 +24,13 @@ for imageid in ${image_ids}; do
   # Check if the AMI is ownered by Amazon
   check_AMI_owner=$(aws ec2 describe-images --image-ids ${imageid} --query Images[].ImageOwnerAlias --region $REGION --output text | wc -l)
   if [ "$check_AMI_owner" -eq "0" ]; then
-    flag=1
-    result_code=1
-    result_msg="---> You are running instance with public AMIs that are not owned by Amazon."
-    result_detail=$result_detail" [$REGION]-Image-Id:$imageid"
+    Image_Owner_Id=$(aws ec2 describe-images --image-ids $imageid --query Images[].OwnerId --output text)
+    if [ ! -z $Image_Owner_Id ] && [ $Image_Owner_Id != $Account_ID ]; then
+        flag=1
+        result_code=1
+        result_msg="---> You are running instance with public AMIs that are not owned by Amazon."
+        result_detail=$result_detail" [$REGION]-Image-Id:$imageid"
+    fi
   fi
 done
 # There is a risk, Highlight It In The Screen
