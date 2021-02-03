@@ -19,9 +19,8 @@ set +e
         if [ "$check_result" != "" ];then
 	    flag=1
             result_code=1
-            result_msg="Region:$REGION,RDS_Snapshot:$snap is Public,Shared to:$check_result"
 	    result_msg="---> You have public RDS snapshot(s) !!!"
-	    result_detail=$result_detail" Region:$REGION,RDS_Snapshot:$snap-is-Public,Shared-to:$check_result"
+	    result_detail=$result_detail" [$REGION]-Snapshot-Id:$snap-is-Shared-to:$check_result"
         fi
     done
     #Check Aurora
