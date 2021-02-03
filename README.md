@@ -7,14 +7,14 @@ Download & Execute:
     - wget https://github.com/tid999/aws-security-check/archive/master.zip
     - unzip master.zip
     - cd aws-security-check-master
-    - chmod +x ./check.sh
+    - chmod +x ./check.sh rules/*.sh
 2. Setup environment：
     - AWS CLI 1.18+ 
     - setup aws configure
     - sudo yum install -y jq
 3. Execute script:
-	  - Audit all regions resource: sh .check.sh
-    - Audit a specific region resource: sh .check.sh us-east-1
+	  - Audit all regions resource: ./check.sh
+    - Audit a specific region resource: ./check.sh us-east-1
 
 ------
 Check Rules:
