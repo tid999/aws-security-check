@@ -6,7 +6,7 @@ Download & Execute:
 1. Download:
     - wget https://github.com/tid999/aws-security-check/archive/master.zip
     - unzip master.zip
-    - cd <Download>/aws-security-check-master
+    - cd aws-security-check-master
     - chmod +x ./check.sh
 2. Setup environment：
     - AWS CLI 1.18+ 
