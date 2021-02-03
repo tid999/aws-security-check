@@ -59,3 +59,7 @@ Check Rules:
 - Jupyter Notebook exposed to the Internet
 - CouchDB on EC2 is exposed to the Internet
 - SMB server exposed to public Internet
+
+------
+Some tips:
+- For global service check rule, please name the script file beginning with '_'. For example, _s3_bucket_public_access.sh
