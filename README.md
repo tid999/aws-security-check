@@ -1,6 +1,6 @@
 # aws-security-check
 This is a program for AWS service security baseline audit.
-It just only audit/check, DO NOT make any chage
+It just only audit/check your account, DO NOT make any change.
 
 -------
 Download & Execute:
