@@ -13,7 +13,7 @@ Download & Execute:
 2. Setup environment：
     - AWS CLI latest version 1 or 2
     - setup aws configure
-    - sudo yum install -y jq
+    - sudo yum install -y jq telnet
 3. Execute script:
 	  - Audit all regions resource: ./check.sh
     - Audit a specific region resource: ./check.sh us-east-1
