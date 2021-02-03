@@ -1,5 +1,6 @@
 # aws-security-check
 This is a program for AWS service security baseline audit.
+It just only audit/check, DO NOT make any chage
 
 -------
 Download & Execute:
@@ -9,7 +10,7 @@ Download & Execute:
     - cd aws-security-check-master
     - chmod +x ./check.sh rules/*.sh
 2. Setup environment：
-    - AWS CLI 1.18+ 
+    - AWS CLI latest version 1 or 2
     - setup aws configure
     - sudo yum install -y jq
 3. Execute script:
