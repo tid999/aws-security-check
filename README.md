@@ -4,7 +4,7 @@ This is a program for AWS service security baseline audit.
 -------
 Download & Execute:
 1. Download:
-    - wget https://github.com/mworldq/aws-security-check/archive/master.zip
+    - wget https://github.com/tid999/aws-security-check/archive/main.zip
     - unzip master.zip
     - cd <Download>/aws-security-check-master
     - chmod +x ./check.sh
