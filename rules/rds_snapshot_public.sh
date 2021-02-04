@@ -11,8 +11,6 @@ flag=0
 set +e
 # printf "vvvvvvvvvv Execute Check - $(basename $0) Start: vvvvvvvvvv\n "
 
-# for REGION in $(aws ec2 describe-regions --output text --query 'Regions[].[RegionName]') ; do 
-    # echo "Check $REGION"; 
     #Check RDS
     for snap in $(aws rds describe-db-snapshots --output text --region $REGION --query 'DBSnapshots[*].DBSnapshotIdentifier'); do 
         check_result=`aws rds describe-db-snapshot-attributes --db-snapshot-identifier $snap --region $REGION --output text --query 'DBSnapshotAttributesResult.DBSnapshotAttributes[0].AttributeValues[*]'`
