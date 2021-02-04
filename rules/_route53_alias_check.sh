@@ -13,7 +13,7 @@ result_msg='No route 53 alias points to non-existent resource'
 # printf "vvvvvvvvvv Execute Check - $(basename $0) Start: vvvvvvvvvv\n "
 
 host_zones_ids=`aws route53 list-hosted-zones --query 'HostedZones[*].Id' --output text`
-if [ ! -z $host_zones_ids ]; then
+if [ ! -z "$host_zones_ids" ]; then
 	for host_zone_id in $host_zones_ids
 	do 
 	    Dns_records=`aws route53 list-resource-record-sets --hosted-zone-id ${host_zone_id} --query "ResourceRecordSets[?AliasTarget].AliasTarget.DNSName" --output text`
