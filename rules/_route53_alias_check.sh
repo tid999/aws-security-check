@@ -36,13 +36,12 @@ if [ ! -z "$host_zones_ids" ]; then
 	  result_code=1
 	  result_msg="---> You have route 53 alias points to non-existent resource"
 	  echo $result_code','$result_msg >> /tmp/check_result.log
+	  # Print All Detailed Risky Resources
+          for dd in $result_detail
+          do
+              echo '11,'$dd >> /tmp/check_result.log
+          done
 	fi
-
-	for record in ${result[@]}
-	do
-	    echo '11,'DNS Name:$record >> /tmp/check_result.log
-	    # echo -e "${record}"
-	done
 fi
 
 printf "%s\n" "$result_msg"
