@@ -22,7 +22,6 @@ if [ ! -z "$host_zones_ids" ]; then
 	    array=(${dns//./ })
 	    dns_region=${array[2]}
 	    resource=${array[1]%-*}
-	    echo  ${dns_region} ${resource}
 	    ret=`aws elb describe-load-balancers --region ${dns_region} --load-balancer-name ${resource} >/dev/null 2>&1`
 	    if [ $? -ne 0 ];then
 		ret=`aws elbv2 describe-load-balancers --region ${dns_region} --names ${resource} >/dev/null 2>&1`
