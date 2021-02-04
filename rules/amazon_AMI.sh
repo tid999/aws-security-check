@@ -26,6 +26,7 @@ for imageid in ${image_ids}; do
   if [ $?  -gt 1 ]; then continue; fi
   if [ "$check_AMI_owner" -eq "0" ]; then
     Image_Owner_Id=$(aws ec2 describe-images --image-ids $imageid --query Images[].OwnerId --output text)
+    if [ $?  -gt 1 ]; then continue; fi
     if [ ! -z $Image_Owner_Id ] && [ $Image_Owner_Id != $Account_ID ]; then
         flag=1
         result_code=1
