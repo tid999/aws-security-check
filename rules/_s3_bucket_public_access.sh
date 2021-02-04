@@ -18,9 +18,11 @@ for bucket in ${buckets}; do
   flag_bucket="$bucket"
 
   # Check bucket public access block
-  check_result_block=$(aws s3api get-public-access-block --bucket $bucket --query 'PublicAccessBlockConfiguration' --output text | tr '\t' '\n' | grep -v 'True' | wc -l)
+  check_result_block=$(aws s3api get-public-access-block --bucket $bucket --query 'PublicAccessBlockConfiguration' --output text 2>/dev/null | tr '\t' '\n' | grep -v 'True' | wc -l)
+  if [ $?  -gt 1 ]; then continue; fi
   # Check bucket ACL world access
-  check_result_acl=$(aws s3api get-bucket-acl --bucket $bucket --query "Grants[].Grantee[].URI" --output text | tr '\t' '\n'|egrep 'AllUsers|AuthenticatedUsers' | wc -l)
+  check_result_acl=$(aws s3api get-bucket-acl --bucket $bucket --query "Grants[].Grantee[].URI" --output text 2>/dev/null | tr '\t' '\n'|egrep 'AllUsers|AuthenticatedUsers' | wc -l)
+  if [ $?  -gt 1 ]; then continue; fi
 
   if [ $check_result_block -gt 0 ] || [ $check_result_acl -gt 0 ]; then
     flag=1

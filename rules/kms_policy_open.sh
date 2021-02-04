@@ -18,8 +18,10 @@ flag_sqs_queues=""
 
 for kms in ${kms_keys}; do
   flag_kms_keys="$kms"
-  kms_policyname=$(aws kms list-key-policies --key-id ${kms} --query 'PolicyNames' --region $REGION --output text)
-  kms_policy=$(aws kms get-key-policy --key-id ${kms} --policy-name ${kms_policyname} --region $REGION --output text)
+  kms_policyname=$(aws kms list-key-policies --key-id ${kms} --query 'PolicyNames' --region $REGION --output text 2>/dev/null )
+  if [ $?  -gt 1 ]; then continue; fi
+  kms_policy=$(aws kms get-key-policy --key-id ${kms} --policy-name ${kms_policyname} --region $REGION --output text 2>/dev/null )
+  if [ $?  -gt 1 ]; then continue; fi
   condition=$(echo $kms_policy | jq -r '.Statement[]' | grep Condition | wc -l)
   principal=$(echo $kms_policy | jq -r '.Statement[]|{Principal:.Principal}' | grep "*" | wc -l)
   if [ $principal -gt $condition ] && [ $principal -gt 0 ]; then
