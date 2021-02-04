@@ -25,7 +25,7 @@ for imageid in ${image_ids}; do
   check_AMI_owner=$(aws ec2 describe-images --image-ids ${imageid} --query Images[].ImageOwnerAlias --region $REGION --output text 2>/dev/null | wc -l)
   if [ $?  -gt 1 ]; then continue; fi
   if [ "$check_AMI_owner" -eq "0" ]; then
-    Image_Owner_Id=$(aws ec2 describe-images --image-ids $imageid --query Images[].OwnerId --output text)
+    Image_Owner_Id=$(aws ec2 describe-images --image-ids $imageid --query Images[].OwnerId --output text 2>/dev/null )
     if [ $?  -gt 1 ]; then continue; fi
     if [ ! -z $Image_Owner_Id ] && [ $Image_Owner_Id != $Account_ID ]; then
         flag=1
